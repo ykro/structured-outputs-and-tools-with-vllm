@@ -1,4 +1,4 @@
-"""The Outside Judge for C4: runs the five experiments once and checks what must hold.
+"""The Outside Judge for structured outputs and tools: runs the five experiments once and checks what must hold.
 
     python verify_structured.py          # live vLLM through the tunnel (real numbers)
     python verify_structured.py --mock   # fake server, checks the logic without a GPU

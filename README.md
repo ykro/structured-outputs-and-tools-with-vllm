@@ -1,9 +1,9 @@
 # Structured Outputs y Tool Calling con vLLM y Gemma
 
 - **Por qué es relevante:** una app no lee prosa, lee campos. Si el modelo devuelve el JSON envuelto en Markdown, con una frase amable al inicio o con una urgencia que tu código no conoce, el parser truena en producción. vLLM puede garantizar la forma de la respuesta desde el servidor: convierte un JSON Schema, una lista de opciones o una expresión regular en una gramática y, en cada paso del decode, enmascara los tokens que la romperían. Con tool calling, el modelo decide qué función llamar y tu código decide si la ejecuta.
-- **Para quién es:** desarrolladores que saben Python, ya llamaron alguna API de IA y ahora sirven su propio modelo (o vienen de la unidad C1 de esta serie). No hace falta JAX ni PyTorch.
+- **Para quién es:** desarrolladores que saben Python, ya llamaron alguna API de IA y ahora sirven su propio modelo (o vienen de [Tu primer servidor vLLM con Gemma](https://github.com/ykro/first-vllm-server-with-gemma)). No hace falta JAX ni PyTorch.
 - **Quién debería verlo:** quien construye una integración donde la salida del modelo alimenta a otro sistema: tickets de soporte que se vuelven registros, formularios que se llenan solos, agentes que consultan una base de datos o crean una orden.
-- **Serie completa:** unidad C4 de la Serie C [vLLM for Software Devs Field Guide](https://github.com/ykro/vllm-for-software-devs-field-guide). La pregunta de esta unidad es «¿Cómo confío en lo que devuelve?».
+- **Serie completa:** cuarta unidad del [vLLM for Software Devs Field Guide](https://github.com/ykro/vllm-for-software-devs-field-guide). La pregunta de esta unidad es «¿Cómo confío en lo que devuelve?».
 
 ---
 
@@ -198,4 +198,4 @@ make report
 make teardown
 ```
 
-Si ya desplegaste el servicio de la unidad C1 sin tool calling, vuelve a correr `make deploy`: el servicio se actualiza con los flags nuevos. La región por defecto es `us-east4` y se cambia con `GCP_REGION`.
+Si ya desplegaste el servicio de `first-vllm-server-with-gemma` sin tool calling, vuelve a correr `make deploy`: el servicio se actualiza con los flags nuevos. La región por defecto es `us-east4` y se cambia con `GCP_REGION`.
