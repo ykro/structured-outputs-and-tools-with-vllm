@@ -1,0 +1,87 @@
+{
+  "note": "Primera corrida en vivo del experimento 04 (2026-11-11), antes de reforzar el system prompt: el caso 'status' falló porque el modelo pidió aclaración en lugar de llamar lookup_order.",
+  "system_prompt": "Eres el asistente de soporte de una tienda en línea de Guatemala. Usa las herramientas. Antes de crear una devolución, consulta siempre el pedido con lookup_order y crea la devolución solo si returnable es true. Responde en español, en una o dos frases.",
+  "result": {
+    "cases": [
+      {
+        "id": "status",
+        "message": "Hola, ¿por dónde viene mi pedido GT-104233? Lo pedí el lunes.",
+        "tools_called": [],
+        "calls": [],
+        "answer": "Para darte información sobre tu pedido, necesito saber si quieres consultar el estado o iniciar una devolución.",
+        "turns": 1,
+        "ok": false
+      },
+      {
+        "id": "return_ok",
+        "message": "Quiero devolver la licuadora del pedido GT-220871, vino con el vaso rajado.",
+        "tools_called": [
+          "lookup_order",
+          "create_return"
+        ],
+        "calls": [
+          {
+            "name": "lookup_order",
+            "arguments": "{\"order_id\": \"GT-220871\"}",
+            "result": {
+              "order_id": "GT-220871",
+              "product": "licuadora",
+              "status": "delivered",
+              "city": "Guatemala",
+              "delivered_days_ago": 3,
+              "returnable": true
+            }
+          },
+          {
+            "name": "create_return",
+            "arguments": "{\"order_id\": \"GT-220871\", \"reason\": \"Vaso rajado\"}",
+            "result": {
+              "order_id": "GT-220871",
+              "return_id": "DEV-220871",
+              "reason": "Vaso rajado",
+              "status": "created"
+            }
+          }
+        ],
+        "answer": "Tu devolución para el pedido GT-220871 ha sido creada exitosamente con el motivo \"Vaso rajado\".",
+        "turns": 3,
+        "ok": true
+      },
+      {
+        "id": "return_too_late",
+        "message": "Quiero devolver la mochila del pedido GT-990417, ya no me gustó.",
+        "tools_called": [
+          "lookup_order"
+        ],
+        "calls": [
+          {
+            "name": "lookup_order",
+            "arguments": "{\"order_id\": \"GT-990417\"}",
+            "result": {
+              "order_id": "GT-990417",
+              "product": "mochila",
+              "status": "delivered",
+              "city": "Antigua Guatemala",
+              "delivered_days_ago": 47,
+              "returnable": false
+            }
+          }
+        ],
+        "answer": "Lo siento, pero el pedido GT-990417 no es elegible para devolución ya que ha pasado el plazo permitido.",
+        "turns": 2,
+        "ok": true
+      },
+      {
+        "id": "no_order",
+        "message": "¿Tienen tienda física en Xela o solo venden en línea?",
+        "tools_called": [],
+        "calls": [],
+        "answer": "Actualmente, solo vendemos a través de nuestra tienda en línea.",
+        "turns": 1,
+        "ok": true
+      }
+    ],
+    "passed": 3,
+    "total": 4
+  }
+}

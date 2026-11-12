@@ -91,3 +91,14 @@ def test_05_stream_shows_fields_before_the_end(base_url):
     r = load("05_streaming_json_to_ui").run(base_url)
     assert r["final_valid"] and r["first_field_s"] < r["total_s"]
     assert len(r["field_arrival_s"]) == 5
+
+
+def test_unwrap_drops_fences_and_chatter_but_not_bad_values():
+    from vllm_lab.schema import unwrap
+
+    good = dict(load_tickets()[0]["expected"])
+    fenced = "Claro, aquí tienes:\n```json\n" + json.dumps(good) + "\n```"
+    assert not check_text(fenced)["parsed"]
+    assert check_text(unwrap(fenced))["valid"]
+    bad = "```json\n" + json.dumps({**good, "urgency": "urgente"}) + "\n```"
+    assert check_text(unwrap(bad))["parsed"] and not check_text(unwrap(bad))["valid"]

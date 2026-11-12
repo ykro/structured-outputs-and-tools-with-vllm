@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1040 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t-title t-desc" id="d-03-streaming-field-arrival-root">
+        <title id="t-title">Streaming de un JSON hacia la interfaz</title>
+        <desc id="t-desc">Línea de tiempo de un registro con streaming. El primer token llega a los 0.31 segundos, la categoría cierra a los 0.69, la urgencia a 1.03, el producto a 1.39, la acción a 1.77, el número de pedido a 2.43 y el registro termina a 2.51 segundos.</desc>
+  <defs>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
+      #d-03-streaming-field-arrival-root { font-family: 'Geist', system-ui, sans-serif; color: #0F2547; }
+      #d-03-streaming-field-arrival-root .diagram-container { width: 100%; overflow-x: auto; }</style>
+  </defs>
+        <rect width="1040" height="430" fill="#F7F6F2"/>
+        <text x="40" y="60" fill="#0F2547" font-size="13" font-weight="600" font-family="'Geist', sans-serif">Un ticket, 58 chunks de streaming</text>
+        <text x="40" y="76" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">tras cada chunk se intenta leer el JSON parcial</text>
+        <text x="40" y="119" fill="#0F2547" font-size="11" font-weight="500" font-family="'Geist', sans-serif">category</text>
+        <rect x="293.3705624252094" y="104" width="116.71320303151174" height="22" rx="3" fill="#0f2547" fill-opacity="0.04" stroke="#0f2547" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="4,3"/>
+        <rect x="407.08376545672115" y="104" width="6" height="22" rx="3" fill="#c59216" fill-opacity="0.18" stroke="#C59216" stroke-width="1"/>
+        <text x="422.08376545672115" y="119" fill="#9A6F0B" font-size="9" font-weight="600" font-family="'Geist Mono', monospace">0.69 s</text>
+        <line x1="410.08376545672115" y1="126" x2="410.08376545672115" y2="268" stroke="#0f2547" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="40" y="153" fill="#0F2547" font-size="11" font-weight="500" font-family="'Geist', sans-serif">urgency</text>
+        <rect x="410.08376545672115" y="138" width="103.37455125648182" height="22" rx="3" fill="#0f2547" fill-opacity="0.04" stroke="#0f2547" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="4,3"/>
+        <rect x="510.458316713203" y="138" width="6" height="22" rx="3" fill="#0f2547" fill-opacity="0.10" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="525.458316713203" y="153" fill="#3B5B8C" font-size="9" font-weight="600" font-family="'Geist Mono', monospace">1.03 s</text>
+        <line x1="513.458316713203" y1="160" x2="513.458316713203" y2="268" stroke="#0f2547" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="40" y="187" fill="#0F2547" font-size="11" font-weight="500" font-family="'Geist', sans-serif">product</text>
+        <rect x="513.458316713203" y="172" width="109.13442361388115" height="22" rx="3" fill="#0f2547" fill-opacity="0.04" stroke="#0f2547" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="4,3"/>
+        <rect x="619.5927403270841" y="172" width="6" height="22" rx="3" fill="#0f2547" fill-opacity="0.10" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="634.5927403270841" y="187" fill="#3B5B8C" font-size="9" font-weight="600" font-family="'Geist Mono', monospace">1.39 s</text>
+        <line x1="622.5927403270841" y1="194" x2="622.5927403270841" y2="268" stroke="#0f2547" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="40" y="221" fill="#0F2547" font-size="11" font-weight="500" font-family="'Geist', sans-serif">requested_action</text>
+        <rect x="622.5927403270841" y="206" width="114.89429597128048" height="22" rx="3" fill="#0f2547" fill-opacity="0.04" stroke="#0f2547" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="4,3"/>
+        <rect x="734.4870362983646" y="206" width="6" height="22" rx="3" fill="#0f2547" fill-opacity="0.10" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="749.4870362983646" y="221" fill="#3B5B8C" font-size="9" font-weight="600" font-family="'Geist Mono', monospace">1.77 s</text>
+        <line x1="737.4870362983646" y1="228" x2="737.4870362983646" y2="268" stroke="#0f2547" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="40" y="255" fill="#0F2547" font-size="11" font-weight="500" font-family="'Geist', sans-serif">order_id</text>
+        <rect x="737.4870362983646" y="240" width="199.47347427203817" height="22" rx="3" fill="#0f2547" fill-opacity="0.04" stroke="#0f2547" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="4,3"/>
+        <rect x="933.9605105704028" y="240" width="6" height="22" rx="3" fill="#0f2547" fill-opacity="0.10" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="928.9605105704028" y="255" fill="#3B5B8C" font-size="9" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="end">2.43 s</text>
+        <line x1="936.9605105704028" y1="262" x2="936.9605105704028" y2="268" stroke="#0f2547" stroke-opacity="0.10" stroke-width="0.8"/>
+        <line x1="200" y1="282" x2="960" y2="282" stroke="#0f2547" stroke-opacity="0.25" stroke-width="0.8"/>
+        <line x1="200.0" y1="282" x2="200.0" y2="287" stroke="#0f2547" stroke-opacity="0.25" stroke-width="0.8"/>
+        <text x="200.0" y="300" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">0.0</text>
+        <line x1="351.57558835261267" y1="282" x2="351.57558835261267" y2="287" stroke="#0f2547" stroke-opacity="0.25" stroke-width="0.8"/>
+        <text x="351.57558835261267" y="300" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">0.5</text>
+        <line x1="503.15117670522534" y1="282" x2="503.15117670522534" y2="287" stroke="#0f2547" stroke-opacity="0.25" stroke-width="0.8"/>
+        <text x="503.15117670522534" y="300" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">1.0</text>
+        <line x1="654.7267650578381" y1="282" x2="654.7267650578381" y2="287" stroke="#0f2547" stroke-opacity="0.25" stroke-width="0.8"/>
+        <text x="654.7267650578381" y="300" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">1.5</text>
+        <line x1="806.3023534104507" y1="282" x2="806.3023534104507" y2="287" stroke="#0f2547" stroke-opacity="0.25" stroke-width="0.8"/>
+        <text x="806.3023534104507" y="300" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">2.0</text>
+        <line x1="957.8779417630634" y1="282" x2="957.8779417630634" y2="287" stroke="#0f2547" stroke-opacity="0.25" stroke-width="0.8"/>
+        <text x="957.8779417630634" y="300" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">2.5</text>
+        <text x="960" y="316" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="end">segundos desde la petición</text>
+        <line x1="293.3705624252094" y1="96" x2="293.3705624252094" y2="282" stroke="#C59216" stroke-width="1.2" stroke-dasharray="4,3"/>
+        <text x="297.3705624252094" y="94" fill="#9A6F0B" font-size="9" font-weight="600" font-family="'Geist Mono', monospace">primer token 0.31 s</text>
+        <line x1="960.0" y1="96" x2="960.0" y2="282" stroke="#3B5B8C" stroke-width="1.2"/>
+        <text x="960.0" y="94" fill="#3B5B8C" font-size="9" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="end">fin 2.51 s</text>
+        <text x="40" y="354" fill="#3B5B8C" font-size="14" font-weight="400" font-family="'Instrument Serif', serif" font-style="italic">La categoría ya se puede pintar a los 0.69 s, el 28 % del camino; al final el texto completo valida como cualquier respuesta.</text>
+        <line x1="40" y1="374" x2="1000" y2="374" stroke="#0f2547" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="40" y="392" fill="#3B5B8C" font-size="8" font-weight="400" font-family="'Geist Mono', monospace" letter-spacing="0.14em">LEYENDA</text>
+        <text x="120" y="392" fill="#0F2547" font-size="9" font-weight="400" font-family="'Geist', sans-serif">Gemma 4 E4B bf16, una L4, response_format json_schema; los tiempos incluyen el túnel; vLLM 0.33.0</text>
+      </svg>

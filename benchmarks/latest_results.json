@@ -1,0 +1,874 @@
+{
+  "generated_at": "2026-11-11T17:15:46+00:00",
+  "vllm_version": "0.33.0",
+  "experiments": {
+    "01_free_text_breaks_parsers": {
+      "tickets": 20,
+      "parsed": 0,
+      "valid": 0,
+      "parse_rate": 0.0,
+      "valid_rate": 0.0,
+      "valid_after_unwrap": 19,
+      "valid_after_unwrap_rate": 0.95,
+      "field_agreement": 0.0,
+      "mean_latency_s": 2.6673,
+      "mean_completion_tokens": 62.0,
+      "rows": [
+        {
+          "id": "T01",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 65,
+          "wall_s": 2.8575,
+          "raw": "```json\n{\n  \"category\": \"shipping\",\n  \"urgency\": \"medium\",\n  \"product\": \"audífonos inalámbricos\",\n  \"requested_action\": \"tracking\",\n  \"order_id\": \"GT-104233\"\n}\n"
+        },
+        {
+          "id": "T02",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 65,
+          "wall_s": 2.773,
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"licuadora\",\n  \"requested_action\": \"refund\",\n  \"order_id\": \"GT-220871\"\n}\n```"
+        },
+        {
+          "id": "T03",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 64,
+          "wall_s": 2.7489,
+          "raw": "```json\n{\n  \"category\": \"wrong_item\",\n  \"urgency\": \"medium\",\n  \"product\": \"tenis\",\n  \"requested_action\": \"exchange\",\n  \"order_id\": \"GT-318490\"\n}\n```"
+        },
+        {
+          "id": "T04",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 62,
+          "wall_s": 2.6687,
+          "raw": "```json\n{\n  \"category\": \"payment\",\n  \"urgency\": \"high\",\n  \"product\": \"celular\",\n  \"requested_action\": \"refund\",\n  \"order_id\": \"GT-402115\"\n}\n```"
+        },
+        {
+          "id": "T05",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 51,
+          "wall_s": 2.2381,
+          "raw": "```json\n{\n  \"category\": \"account\",\n  \"urgency\": \"low\",\n  \"product\": null,\n  \"requested_action\": \"information\",\n  \"order_id\": null\n}\n```"
+        },
+        {
+          "id": "T06",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 65,
+          "wall_s": 2.7722,
+          "raw": "```json\n{\n  \"category\": \"cancellation\",\n  \"urgency\": \"medium\",\n  \"product\": \"refrigeradora\",\n  \"requested_action\": \"cancellation\",\n  \"order_id\": \"GT-511902\"\n}\n`"
+        },
+        {
+          "id": "T07",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 69,
+          "wall_s": 2.9229,
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"café de Huehuetenango\",\n  \"requested_action\": \"exchange\",\n  \"order_id\": \"GT-603344"
+        },
+        {
+          "id": "T08",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 63,
+          "wall_s": 2.6881,
+          "raw": "```json\n{\n  \"category\": \"other\",\n  \"urgency\": \"low\",\n  \"product\": \"mochila\",\n  \"requested_action\": \"invoice\",\n  \"order_id\": \"GT-127650\"\n}\n```"
+        },
+        {
+          "id": "T09",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 64,
+          "wall_s": 2.7314,
+          "raw": "```json\n{\n  \"category\": \"shipping\",\n  \"urgency\": \"high\",\n  \"product\": \"silla de oficina\",\n  \"requested_action\": \"refund\",\n  \"order_id\": \"GT-735281\"\n}\n```"
+        },
+        {
+          "id": "T10",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 51,
+          "wall_s": 2.2647,
+          "raw": "```json\n{\n  \"category\": \"account\",\n  \"urgency\": \"high\",\n  \"product\": null,\n  \"requested_action\": \"information\",\n  \"order_id\": null\n}\n```"
+        },
+        {
+          "id": "T11",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": false,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": "$.requested_action: 'return' is not one of ['refund', 'exchange', 'resend', 'tracking', 'cancellation', 'information', 'invoice']",
+          "fields_matching_expected": 0,
+          "completion_tokens": 66,
+          "wall_s": 2.8278,
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"plancha de pelo\",\n  \"requested_action\": \"return\",\n  \"order_id\": \"GT-845019\"\n}\n```"
+        },
+        {
+          "id": "T12",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 53,
+          "wall_s": 2.3197,
+          "raw": "```json\n{\n  \"category\": \"shipping\",\n  \"urgency\": \"low\",\n  \"product\": \"bicicleta\",\n  \"requested_action\": \"information\",\n  \"order_id\": null\n}\n```"
+        },
+        {
+          "id": "T13",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 69,
+          "wall_s": 2.9394,
+          "raw": "```json\n{\n  \"category\": \"wrong_item\",\n  \"urgency\": \"high\",\n  \"product\": \"juegos de sábanas\",\n  \"requested_action\": \"resend\",\n  \"order_id\": \"GT-956120\"\n}\n```"
+        },
+        {
+          "id": "T14",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 63,
+          "wall_s": 2.7086,
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"tablet\",\n  \"requested_action\": \"exchange\",\n  \"order_id\": \"GT-160482\"\n}\n```"
+        },
+        {
+          "id": "T15",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 60,
+          "wall_s": 2.5755,
+          "raw": "```json\n{\n  \"category\": \"payment\",\n  \"urgency\": \"medium\",\n  \"product\": null,\n  \"requested_action\": \"information\",\n  \"order_id\": \"GT-271593\"\n}\n```"
+        },
+        {
+          "id": "T16",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 55,
+          "wall_s": 2.3743,
+          "raw": "```json\n{\n  \"category\": \"cancellation\",\n  \"urgency\": \"medium\",\n  \"product\": \"cafetera\",\n  \"requested_action\": \"cancellation\",\n  \"order_id\": null\n}\n```"
+        },
+        {
+          "id": "T17",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 64,
+          "wall_s": 2.7328,
+          "raw": "```json\n{\n  \"category\": \"wrong_item\",\n  \"urgency\": \"high\",\n  \"product\": \"ventilador\",\n  \"requested_action\": \"exchange\",\n  \"order_id\": \"GT-382604\"\n}\n```"
+        },
+        {
+          "id": "T18",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 65,
+          "wall_s": 2.7704,
+          "raw": "```json\n{\n  \"category\": \"other\",\n  \"urgency\": \"low\",\n  \"product\": \"horno de microondas\",\n  \"requested_action\": \"information\",\n  \"order_id\": \"GT-493715\"\n}\n```"
+        },
+        {
+          "id": "T19",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 64,
+          "wall_s": 2.7486,
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"estufa\",\n  \"requested_action\": \"refund\",\n  \"order_id\": \"GT-504826\"\n}\n```"
+        },
+        {
+          "id": "T20",
+          "parsed": false,
+          "valid": false,
+          "valid_after_unwrap": true,
+          "error": "json.loads: Expecting value",
+          "error_after_unwrap": null,
+          "fields_matching_expected": 0,
+          "completion_tokens": 63,
+          "wall_s": 2.6841,
+          "raw": "```json\n{\n  \"category\": \"shipping\",\n  \"urgency\": \"high\",\n  \"product\": \"teclado\",\n  \"requested_action\": \"tracking\",\n  \"order_id\": \"GT-615937\"\n}\n```"
+        }
+      ],
+      "failures": [
+        {
+          "id": "T01",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"shipping\",\n  \"urgency\": \"medium\",\n  \"product\": \"audífonos inalámbricos\",\n  \"requested_action\": \"tracking\",\n  \"order_id\": \"GT-104233\"\n}\n"
+        },
+        {
+          "id": "T02",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"licuadora\",\n  \"requested_action\": \"refund\",\n  \"order_id\": \"GT-220871\"\n}\n```"
+        },
+        {
+          "id": "T03",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"wrong_item\",\n  \"urgency\": \"medium\",\n  \"product\": \"tenis\",\n  \"requested_action\": \"exchange\",\n  \"order_id\": \"GT-318490\"\n}\n```"
+        },
+        {
+          "id": "T04",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"payment\",\n  \"urgency\": \"high\",\n  \"product\": \"celular\",\n  \"requested_action\": \"refund\",\n  \"order_id\": \"GT-402115\"\n}\n```"
+        },
+        {
+          "id": "T05",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"account\",\n  \"urgency\": \"low\",\n  \"product\": null,\n  \"requested_action\": \"information\",\n  \"order_id\": null\n}\n```"
+        },
+        {
+          "id": "T06",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"cancellation\",\n  \"urgency\": \"medium\",\n  \"product\": \"refrigeradora\",\n  \"requested_action\": \"cancellation\",\n  \"order_id\": \"GT-511902\"\n}\n`"
+        },
+        {
+          "id": "T07",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"café de Huehuetenango\",\n  \"requested_action\": \"exchange\",\n  \"order_id\": \"GT-603344"
+        },
+        {
+          "id": "T08",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"other\",\n  \"urgency\": \"low\",\n  \"product\": \"mochila\",\n  \"requested_action\": \"invoice\",\n  \"order_id\": \"GT-127650\"\n}\n```"
+        },
+        {
+          "id": "T09",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"shipping\",\n  \"urgency\": \"high\",\n  \"product\": \"silla de oficina\",\n  \"requested_action\": \"refund\",\n  \"order_id\": \"GT-735281\"\n}\n```"
+        },
+        {
+          "id": "T10",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"account\",\n  \"urgency\": \"high\",\n  \"product\": null,\n  \"requested_action\": \"information\",\n  \"order_id\": null\n}\n```"
+        },
+        {
+          "id": "T11",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"plancha de pelo\",\n  \"requested_action\": \"return\",\n  \"order_id\": \"GT-845019\"\n}\n```"
+        },
+        {
+          "id": "T12",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"shipping\",\n  \"urgency\": \"low\",\n  \"product\": \"bicicleta\",\n  \"requested_action\": \"information\",\n  \"order_id\": null\n}\n```"
+        },
+        {
+          "id": "T13",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"wrong_item\",\n  \"urgency\": \"high\",\n  \"product\": \"juegos de sábanas\",\n  \"requested_action\": \"resend\",\n  \"order_id\": \"GT-956120\"\n}\n```"
+        },
+        {
+          "id": "T14",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"tablet\",\n  \"requested_action\": \"exchange\",\n  \"order_id\": \"GT-160482\"\n}\n```"
+        },
+        {
+          "id": "T15",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"payment\",\n  \"urgency\": \"medium\",\n  \"product\": null,\n  \"requested_action\": \"information\",\n  \"order_id\": \"GT-271593\"\n}\n```"
+        },
+        {
+          "id": "T16",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"cancellation\",\n  \"urgency\": \"medium\",\n  \"product\": \"cafetera\",\n  \"requested_action\": \"cancellation\",\n  \"order_id\": null\n}\n```"
+        },
+        {
+          "id": "T17",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"wrong_item\",\n  \"urgency\": \"high\",\n  \"product\": \"ventilador\",\n  \"requested_action\": \"exchange\",\n  \"order_id\": \"GT-382604\"\n}\n```"
+        },
+        {
+          "id": "T18",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"other\",\n  \"urgency\": \"low\",\n  \"product\": \"horno de microondas\",\n  \"requested_action\": \"information\",\n  \"order_id\": \"GT-493715\"\n}\n```"
+        },
+        {
+          "id": "T19",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"estufa\",\n  \"requested_action\": \"refund\",\n  \"order_id\": \"GT-504826\"\n}\n```"
+        },
+        {
+          "id": "T20",
+          "error": "json.loads: Expecting value",
+          "raw": "```json\n{\n  \"category\": \"shipping\",\n  \"urgency\": \"high\",\n  \"product\": \"teclado\",\n  \"requested_action\": \"tracking\",\n  \"order_id\": \"GT-615937\"\n}\n```"
+        }
+      ],
+      "still_invalid_after_unwrap": [
+        {
+          "id": "T11",
+          "error": "$.requested_action: 'return' is not one of ['refund', 'exchange', 'resend', 'tracking', 'cancellation', 'information', 'invoice']",
+          "raw": "```json\n{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"plancha de pelo\",\n  \"requested_action\": \"return\",\n  \"order_id\": \"GT-845019\"\n}\n```"
+        }
+      ]
+    },
+    "02_json_schema_output": {
+      "response_format": {
+        "type": "json_schema",
+        "json_schema": {
+          "name": "ticket_record",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "enum": [
+                  "shipping",
+                  "damaged_product",
+                  "wrong_item",
+                  "payment",
+                  "account",
+                  "cancellation",
+                  "other"
+                ]
+              },
+              "urgency": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              },
+              "product": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "requested_action": {
+                "type": "string",
+                "enum": [
+                  "refund",
+                  "exchange",
+                  "resend",
+                  "tracking",
+                  "cancellation",
+                  "information",
+                  "invoice"
+                ]
+              },
+              "order_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^GT-[0-9]{6}$"
+              }
+            },
+            "required": [
+              "category",
+              "urgency",
+              "product",
+              "requested_action",
+              "order_id"
+            ],
+            "additionalProperties": false
+          },
+          "strict": true
+        }
+      },
+      "first_schema_call_s": 1.5715,
+      "free_text": {
+        "parse_rate": 0.0,
+        "valid_rate": 0.0,
+        "mean_latency_s": 2.6731,
+        "mean_completion_tokens": 62.0
+      },
+      "json_schema": {
+        "parse_rate": 1.0,
+        "valid_rate": 1.0,
+        "field_agreement": 0.92,
+        "mean_latency_s": 2.383,
+        "mean_completion_tokens": 54
+      },
+      "latency_x_vs_free": 0.89,
+      "invalid_ids": [],
+      "sample": "{\n  \"category\": \"shipping\",\n  \"urgency\": \"medium\",\n  \"product\": \"audífonos inalámbricos\",\n  \"requested_action\": \"tracking\",\n  \"order_id\": \"GT-104233\"\n}"
+    },
+    "03_enums_and_regex": {
+      "param_style": "structured_outputs",
+      "choices": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "regex": "GT-[0-9]{6}|NONE",
+      "urgency_free_in_enum": 1.0,
+      "urgency_choice_in_enum": 1.0,
+      "order_free_matches": 1.0,
+      "order_regex_matches": 1.0,
+      "urgency_choice_agrees": 0.8,
+      "order_regex_agrees": 1.0,
+      "free_misses": [],
+      "rows": [
+        {
+          "id": "T01",
+          "urgency_free": "medium",
+          "urgency_choice": "medium",
+          "order_free": "GT-104233",
+          "order_regex": "GT-104233",
+          "expected_urgency": "medium",
+          "expected_order": "GT-104233"
+        },
+        {
+          "id": "T02",
+          "urgency_free": "high",
+          "urgency_choice": "high",
+          "order_free": "GT-220871",
+          "order_regex": "GT-220871",
+          "expected_urgency": "high",
+          "expected_order": "GT-220871"
+        },
+        {
+          "id": "T03",
+          "urgency_free": "medium",
+          "urgency_choice": "medium",
+          "order_free": "GT-318490",
+          "order_regex": "GT-318490",
+          "expected_urgency": "medium",
+          "expected_order": "GT-318490"
+        },
+        {
+          "id": "T04",
+          "urgency_free": "high",
+          "urgency_choice": "high",
+          "order_free": "GT-402115",
+          "order_regex": "GT-402115",
+          "expected_urgency": "high",
+          "expected_order": "GT-402115"
+        },
+        {
+          "id": "T05",
+          "urgency_free": "medium",
+          "urgency_choice": "medium",
+          "order_free": "NONE",
+          "order_regex": "NONE",
+          "expected_urgency": "low",
+          "expected_order": "NONE"
+        },
+        {
+          "id": "T06",
+          "urgency_free": "medium",
+          "urgency_choice": "medium",
+          "order_free": "GT-511902",
+          "order_regex": "GT-511902",
+          "expected_urgency": "medium",
+          "expected_order": "GT-511902"
+        },
+        {
+          "id": "T07",
+          "urgency_free": "medium",
+          "urgency_choice": "medium",
+          "order_free": "GT-603344",
+          "order_regex": "GT-603344",
+          "expected_urgency": "medium",
+          "expected_order": "GT-603344"
+        },
+        {
+          "id": "T08",
+          "urgency_free": "low",
+          "urgency_choice": "low",
+          "order_free": "GT-127650",
+          "order_regex": "GT-127650",
+          "expected_urgency": "low",
+          "expected_order": "GT-127650"
+        },
+        {
+          "id": "T09",
+          "urgency_free": "high",
+          "urgency_choice": "high",
+          "order_free": "GT-735281",
+          "order_regex": "GT-735281",
+          "expected_urgency": "high",
+          "expected_order": "GT-735281"
+        },
+        {
+          "id": "T10",
+          "urgency_free": "high",
+          "urgency_choice": "high",
+          "order_free": "NONE",
+          "order_regex": "NONE",
+          "expected_urgency": "medium",
+          "expected_order": "NONE"
+        },
+        {
+          "id": "T11",
+          "urgency_free": "high",
+          "urgency_choice": "high",
+          "order_free": "GT-845019",
+          "order_regex": "GT-845019",
+          "expected_urgency": "high",
+          "expected_order": "GT-845019"
+        },
+        {
+          "id": "T12",
+          "urgency_free": "low",
+          "urgency_choice": "low",
+          "order_free": "NONE",
+          "order_regex": "NONE",
+          "expected_urgency": "low",
+          "expected_order": "NONE"
+        },
+        {
+          "id": "T13",
+          "urgency_free": "high",
+          "urgency_choice": "high",
+          "order_free": "GT-956120",
+          "order_regex": "GT-956120",
+          "expected_urgency": "medium",
+          "expected_order": "GT-956120"
+        },
+        {
+          "id": "T14",
+          "urgency_free": "high",
+          "urgency_choice": "high",
+          "order_free": "GT-160482",
+          "order_regex": "GT-160482",
+          "expected_urgency": "high",
+          "expected_order": "GT-160482"
+        },
+        {
+          "id": "T15",
+          "urgency_free": "medium",
+          "urgency_choice": "medium",
+          "order_free": "GT-271593",
+          "order_regex": "GT-271593",
+          "expected_urgency": "medium",
+          "expected_order": "GT-271593"
+        },
+        {
+          "id": "T16",
+          "urgency_free": "medium",
+          "urgency_choice": "medium",
+          "order_free": "NONE",
+          "order_regex": "NONE",
+          "expected_urgency": "low",
+          "expected_order": "NONE"
+        },
+        {
+          "id": "T17",
+          "urgency_free": "medium",
+          "urgency_choice": "medium",
+          "order_free": "GT-382604",
+          "order_regex": "GT-382604",
+          "expected_urgency": "medium",
+          "expected_order": "GT-382604"
+        },
+        {
+          "id": "T18",
+          "urgency_free": "low",
+          "urgency_choice": "low",
+          "order_free": "GT-493715",
+          "order_regex": "GT-493715",
+          "expected_urgency": "low",
+          "expected_order": "GT-493715"
+        },
+        {
+          "id": "T19",
+          "urgency_free": "high",
+          "urgency_choice": "high",
+          "order_free": "GT-504826",
+          "order_regex": "GT-504826",
+          "expected_urgency": "high",
+          "expected_order": "GT-504826"
+        },
+        {
+          "id": "T20",
+          "urgency_free": "medium",
+          "urgency_choice": "medium",
+          "order_free": "GT-615937",
+          "order_regex": "GT-615937",
+          "expected_urgency": "medium",
+          "expected_order": "GT-615937"
+        }
+      ]
+    },
+    "04_tool_calling": {
+      "cases": [
+        {
+          "id": "status",
+          "message": "Hola, ¿por dónde viene mi pedido GT-104233? Lo pedí el lunes.",
+          "tools_called": [
+            "lookup_order"
+          ],
+          "calls": [
+            {
+              "name": "lookup_order",
+              "arguments": "{\"order_id\": \"GT-104233\"}",
+              "result": {
+                "order_id": "GT-104233",
+                "product": "audífonos inalámbricos",
+                "status": "in_transit",
+                "city": "Mixco",
+                "delivered_days_ago": null,
+                "returnable": false
+              }
+            }
+          ],
+          "answer": "Tu pedido GT-104233, que son audífonos inalámbricos, se encuentra actualmente en tránsito y está en camino a Mixco.",
+          "turns": 2,
+          "ok": true
+        },
+        {
+          "id": "return_ok",
+          "message": "Quiero devolver la licuadora del pedido GT-220871, vino con el vaso rajado.",
+          "tools_called": [
+            "lookup_order",
+            "create_return"
+          ],
+          "calls": [
+            {
+              "name": "lookup_order",
+              "arguments": "{\"order_id\": \"GT-220871\"}",
+              "result": {
+                "order_id": "GT-220871",
+                "product": "licuadora",
+                "status": "delivered",
+                "city": "Guatemala",
+                "delivered_days_ago": 3,
+                "returnable": true
+              }
+            },
+            {
+              "name": "create_return",
+              "arguments": "{\"order_id\": \"GT-220871\", \"reason\": \"Vaso rajado\"}",
+              "result": {
+                "order_id": "GT-220871",
+                "return_id": "DEV-220871",
+                "reason": "Vaso rajado",
+                "status": "created"
+              }
+            }
+          ],
+          "answer": "Su devolución para el pedido GT-220871 ha sido creada exitosamente con el motivo \"Vaso rajado\". Recibirá más detalles sobre el proceso de devolución pronto.",
+          "turns": 3,
+          "ok": true
+        },
+        {
+          "id": "return_too_late",
+          "message": "Quiero devolver la mochila del pedido GT-990417, ya no me gustó.",
+          "tools_called": [
+            "lookup_order"
+          ],
+          "calls": [
+            {
+              "name": "lookup_order",
+              "arguments": "{\"order_id\": \"GT-990417\"}",
+              "result": {
+                "order_id": "GT-990417",
+                "product": "mochila",
+                "status": "delivered",
+                "city": "Antigua Guatemala",
+                "delivered_days_ago": 47,
+                "returnable": false
+              }
+            }
+          ],
+          "answer": "Lo siento, pero el pedido GT-990417 no es elegible para devolución ya que ha pasado el plazo establecido.",
+          "turns": 2,
+          "ok": true
+        },
+        {
+          "id": "no_order",
+          "message": "¿Tienen tienda física en Xela o solo venden en línea?",
+          "tools_called": [],
+          "calls": [],
+          "answer": "Actualmente, solo vendemos a través de nuestra tienda en línea. ¡Estamos a tu servicio por aquí!",
+          "turns": 1,
+          "ok": true
+        }
+      ],
+      "passed": 4,
+      "total": 4
+    },
+    "05_streaming_json_to_ui": {
+      "ticket": "URGENTE: la estufa que me entregaron en zona 18 huele a gas. Pedido GT-504826. No la quiero, devuélvanme el dinero.",
+      "chunks": 58,
+      "ttft_s": 0.3077,
+      "total_s": 2.5069,
+      "field_arrival_s": {
+        "category": 0.6927,
+        "urgency": 1.0344,
+        "product": 1.3941,
+        "requested_action": 1.773,
+        "order_id": 2.4307
+      },
+      "first_field_s": 0.6927,
+      "frames": [
+        {
+          "t_s": 0.3077,
+          "complete": [],
+          "typing": {}
+        },
+        {
+          "t_s": 0.5364,
+          "complete": [],
+          "typing": {
+            "category": ""
+          }
+        },
+        {
+          "t_s": 0.6927,
+          "complete": [
+            "category"
+          ],
+          "typing": {}
+        },
+        {
+          "t_s": 0.9606,
+          "complete": [
+            "category"
+          ],
+          "typing": {
+            "urgency": ""
+          }
+        },
+        {
+          "t_s": 1.0344,
+          "complete": [
+            "category",
+            "urgency"
+          ],
+          "typing": {}
+        },
+        {
+          "t_s": 1.2656,
+          "complete": [
+            "category",
+            "urgency"
+          ],
+          "typing": {
+            "product": ""
+          }
+        },
+        {
+          "t_s": 1.3941,
+          "complete": [
+            "category",
+            "product",
+            "urgency"
+          ],
+          "typing": {}
+        },
+        {
+          "t_s": 1.6977,
+          "complete": [
+            "category",
+            "product",
+            "urgency"
+          ],
+          "typing": {
+            "requested_action": ""
+          }
+        },
+        {
+          "t_s": 1.773,
+          "complete": [
+            "category",
+            "product",
+            "requested_action",
+            "urgency"
+          ],
+          "typing": {}
+        },
+        {
+          "t_s": 2.0755,
+          "complete": [
+            "category",
+            "product",
+            "requested_action",
+            "urgency"
+          ],
+          "typing": {
+            "order_id": ""
+          }
+        },
+        {
+          "t_s": 2.4307,
+          "complete": [
+            "category",
+            "order_id",
+            "product",
+            "requested_action",
+            "urgency"
+          ],
+          "typing": {}
+        }
+      ],
+      "final_text": "{\n  \"category\": \"damaged_product\",\n  \"urgency\": \"high\",\n  \"product\": \"estufa\",\n  \"requested_action\": \"refund\",\n  \"order_id\": \"GT-504826\"\n}",
+      "final_parsed": true,
+      "final_valid": true
+    }
+  },
+  "checks": {
+    "01. JSON asked in the prompt": true,
+    "02. response_format json_schema": true,
+    "03. choice and regex": true,
+    "04. Tool calling loop": true,
+    "05. Streaming JSON to a UI": true
+  }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El loop de tool calling</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Geist', system-ui, sans-serif; background: #F7F6F2; color: #0F2547;
+           min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2.5rem 2rem; }
+    .frame { max-width: 1120px; width: 100%; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    .eyebrow { font-family: 'Geist Mono', monospace; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em;
+               text-transform: uppercase; color: #3B5B8C; margin-bottom: 0.5rem; }
+    h1 { font-family: 'Instrument Serif', serif; font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400;
+         letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 1040px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Sequence · vLLM Field Guide</p>
+    <h1>El modelo propone la llamada, tu código decide si la ejecuta y las reglas viven en la herramienta</h1>
+    <div class="diagram-container">
+      <svg viewBox="0 0 1040 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t-title t-desc">
+        <title id="t-title">El loop de tool calling</title>
+        <desc id="t-desc">El loop de tool calling con cuatro participantes: el cliente, el modelo, tu código y la herramienta. En el caso de la mochila del pedido GT-990417, el modelo consulta el pedido, la herramienta responde returnable false por 47 días y el modelo no crea la devolución. Los cuatro casos pasan.</desc>
+        <rect width="1040" height="600" fill="#F7F6F2"/>
+        <rect x="50" y="50" width="140" height="34" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="120.0" y="71.0" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Cliente</text>
+        <line x1="120" y1="84" x2="120" y2="400" stroke="rgba(15,37,71,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+        <rect x="330" y="50" width="140" height="34" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="400.0" y="71.0" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Modelo (vLLM)</text>
+        <line x1="400" y1="84" x2="400" y2="400" stroke="rgba(15,37,71,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+        <rect x="610" y="50" width="140" height="34" rx="3" fill="rgba(197,146,22,0.18)" stroke="#C59216" stroke-width="1"/>
+        <text x="680.0" y="71.0" fill="#9A6F0B" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Tu código</text>
+        <line x1="680" y1="84" x2="680" y2="400" stroke="rgba(15,37,71,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+        <rect x="850" y="50" width="140" height="34" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="920.0" y="71.0" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Herramienta</text>
+        <line x1="920" y1="84" x2="920" y2="400" stroke="rgba(15,37,71,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="120" y1="120" x2="400" y2="120" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="400,120 393,116 393,124" fill="#3B5B8C"/>
+        <text x="260.0" y="112" fill="#0F2547" font-size="10" font-weight="500" font-family="'Geist', sans-serif" text-anchor="middle">«Quiero devolver la mochila del pedido GT-990417»</text>
+        <line x1="400" y1="160" x2="680" y2="160" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="680,160 673,156 673,164" fill="#3B5B8C"/>
+        <text x="540.0" y="152" fill="#0F2547" font-size="10" font-weight="500" font-family="'Geist', sans-serif" text-anchor="middle">tool_calls: lookup_order(order_id)</text>
+        <line x1="680" y1="200" x2="920" y2="200" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="920,200 913,196 913,204" fill="#3B5B8C"/>
+        <text x="800.0" y="192" fill="#0F2547" font-size="10" font-weight="500" font-family="'Geist', sans-serif" text-anchor="middle">ejecuta lookup_order</text>
+        <line x1="920" y1="240" x2="680" y2="240" stroke="#C59216" stroke-width="1.4"/>
+        <polygon points="680,240 687,236 687,244" fill="#C59216"/>
+        <text x="800.0" y="232" fill="#9A6F0B" font-size="10" font-weight="500" font-family="'Geist', sans-serif" text-anchor="middle">returnable: false, 47 días</text>
+        <line x1="680" y1="280" x2="400" y2="280" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="400,280 407,276 407,284" fill="#3B5B8C"/>
+        <text x="540.0" y="272" fill="#0F2547" font-size="10" font-weight="500" font-family="'Geist', sans-serif" text-anchor="middle">mensaje tool con el resultado</text>
+        <line x1="400" y1="320" x2="120" y2="320" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="120,320 127,316 127,324" fill="#3B5B8C"/>
+        <text x="260.0" y="312" fill="#0F2547" font-size="10" font-weight="500" font-family="'Geist', sans-serif" text-anchor="middle">«no es elegible, pasó el plazo»</text>
+        <text x="680" y="358" fill="#9A6F0B" font-size="10" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">create_return nunca se llama:</text>
+        <text x="680" y="374" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">la regla de 30 días vive aquí</text>
+        <text x="40" y="430" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif">Los cuatro casos fijos</text>
+        <rect x="40" y="442" width="225" height="30" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="50" y="455" fill="#0F2547" font-size="10" font-weight="600" font-family="'Geist', sans-serif">status</text>
+        <text x="50" y="467" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">lookup</text>
+        <rect x="280" y="442" width="225" height="30" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="290" y="455" fill="#0F2547" font-size="10" font-weight="600" font-family="'Geist', sans-serif">return_ok</text>
+        <text x="290" y="467" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">lookup + return</text>
+        <rect x="520" y="442" width="225" height="30" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="530" y="455" fill="#0F2547" font-size="10" font-weight="600" font-family="'Geist', sans-serif">return_too_late</text>
+        <text x="530" y="467" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">lookup</text>
+        <rect x="760" y="442" width="225" height="30" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="770" y="455" fill="#0F2547" font-size="10" font-weight="600" font-family="'Geist', sans-serif">no_order</text>
+        <text x="770" y="467" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">ninguna</text>
+        <text x="40" y="524" fill="#3B5B8C" font-size="14" font-weight="400" font-family="'Instrument Serif', serif" font-style="italic">4 de 4 casos llamaron las herramientas correctas con el número de pedido correcto.</text>
+        <line x1="40" y1="544" x2="1000" y2="544" stroke="rgba(15,37,71,0.10)" stroke-width="0.8"/>
+        <text x="40" y="562" fill="#3B5B8C" font-size="8" font-weight="400" font-family="'Geist Mono', monospace" letter-spacing="0.14em">LEYENDA</text>
+        <text x="120" y="562" fill="#0F2547" font-size="9" font-weight="400" font-family="'Geist', sans-serif">Parser gemma4 con --enable-auto-tool-choice; tool_choice auto; vLLM 0.33.0; datos de pedidos falsos</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

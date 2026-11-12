@@ -77,7 +77,8 @@ def main() -> int:
     rows = [
         ("01. JSON asked in the prompt",
          f"parse {r1['parsed']}/{r1['tickets']}, valid {r1['valid']}/{r1['tickets']}",
-         f"{pct(r1['valid_rate'])} valid", r1["tickets"] == len(load_tickets())),
+         f"unwrapped {r1['valid_after_unwrap']}/{r1['tickets']} valid",
+         r1["tickets"] == len(load_tickets())),
         ("02. response_format json_schema",
          f"valid {pct(js['valid_rate'])} vs {pct(r1['valid_rate'])} free",
          f"latency {r2['latency_x_vs_free']:.2f}x free",
@@ -100,21 +101,21 @@ def main() -> int:
     mode = "mock (fake server, numbers are not real)" if args.mock else "live"
     version = server_version(base_url)
     lines = [
-        "=" * 100,
+        "=" * 106,
         "THE OUTSIDE JUDGE — Structured Outputs and Tools with vLLM",
-        "=" * 100,
+        "=" * 106,
         f"Mode    : {mode}",
         (f"Server  : vLLM {version} | constrained params via '{r3['param_style']}' | "
          f"first schema request {r2['first_schema_call_s']:.3f} s"),
         f"Client  : Python {platform.python_version()} | {platform.system()} {platform.machine()}",
-        "-" * 100,
-        f"{'Experiment':32} | {'Measured':34} | {'Result':20} | Check",
-        "-" * 100,
+        "-" * 106,
+        f"{'Experiment':32} | {'Measured':34} | {'Result':26} | Check",
+        "-" * 106,
     ]
     for name, measured, result, ok in rows:
-        lines.append(f"{name:32} | {measured:34} | {result:20} | {'PASS' if ok else 'FAIL'}")
+        lines.append(f"{name:32} | {measured:34} | {result:26} | {'PASS' if ok else 'FAIL'}")
     lines += [
-        "-" * 100,
+        "-" * 106,
         (f"Agreement with hand labels (informative): schema {pct(js['field_agreement'])} of "
          f"fields, urgency {pct(r3['urgency_choice_agrees'])}, order id "
          f"{pct(r3['order_regex_agrees'])}."),

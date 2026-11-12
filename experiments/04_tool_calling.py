@@ -22,10 +22,16 @@ from vllm_lab import cli, complete, make_client
 from vllm_lab.store import TOOLS, call_tool
 
 SYSTEM = (
-    "Eres el asistente de soporte de una tienda en línea de Guatemala. Usa las herramientas. "
-    "Antes de crear una devolución, consulta siempre el pedido con lookup_order y crea la "
-    "devolución solo si returnable es true. Responde en español, en una o dos frases."
+    "Eres el asistente de soporte de una tienda en línea de Guatemala. Cuando el cliente "
+    "mencione un número de pedido, consúltalo siempre con lookup_order antes de responder, "
+    "sin pedir aclaraciones si ya tienes el número. Crea una devolución con create_return "
+    "solo si el cliente la pide y returnable es true. Si el mensaje no trae número de pedido, "
+    "responde sin herramientas. Responde en español, en una o dos frases."
 )
+# The first live run used a shorter prompt ("Usa las herramientas. Antes de crear una
+# devolución, consulta siempre el pedido...") and the model answered the status question with a
+# clarifying question instead of calling lookup_order: 3 of 4 cases. See
+# benchmarks/tool_calling_first_attempt.json. Tool calling is still a model decision.
 MAX_TURNS = 5
 
 CASES = [

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedir JSON en el prompt contra mandar el esquema</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Geist', system-ui, sans-serif; background: #F7F6F2; color: #0F2547;
+           min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2.5rem 2rem; }
+    .frame { max-width: 1120px; width: 100%; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    .eyebrow { font-family: 'Geist Mono', monospace; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em;
+               text-transform: uppercase; color: #3B5B8C; margin-bottom: 0.5rem; }
+    h1 { font-family: 'Instrument Serif', serif; font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400;
+         letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 1040px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Flow · vLLM Field Guide</p>
+    <h1>El prompt es un deseo y el esquema es un contrato que el servidor hace cumplir en cada token</h1>
+    <div class="diagram-container">
+      <svg viewBox="0 0 1040 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t-title t-desc">
+        <title id="t-title">Pedir JSON en el prompt contra mandar el esquema</title>
+        <desc id="t-desc">Dos caminos para el mismo ticket. Con el formato pedido en el prompt, 0 de 20 respuestas pasan json.loads porque llegan en un bloque de Markdown y 19 de 20 validan al quitarlo. Con response_format json_schema, 20 de 20 parsean y validan porque el servidor apaga los tokens que romperían la gramática.</desc>
+        <rect width="1040" height="520" fill="#F7F6F2"/>
+        <text x="40" y="60" fill="#0F2547" font-size="13" font-weight="600" font-family="'Geist', sans-serif">JSON pedido en el prompt</text>
+        <text x="40" y="76" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">el modelo elige el token más probable, sin ninguna regla</text>
+        <rect x="40" y="96" width="150" height="54" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="115.0" y="120.0" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Ticket + prompt</text>
+        <text x="115.0" y="135.0" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">«responde solo con el JSON»</text>
+        <line x1="190" y1="123" x2="230" y2="123" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="230,123 223,119 223,127" fill="#3B5B8C"/>
+        <rect x="230" y="96" width="150" height="54" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="305.0" y="120.0" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Modelo</text>
+        <text x="305.0" y="135.0" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">elige libre cada token</text>
+        <line x1="380" y1="123" x2="420" y2="123" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="420,123 413,119 413,127" fill="#3B5B8C"/>
+        <rect x="420" y="96" width="210" height="54" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="525.0" y="120.0" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Texto con fences</text>
+        <text x="525.0" y="135.0" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">```json ... ```</text>
+        <line x1="630" y1="123" x2="670" y2="123" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="670,123 663,119 663,127" fill="#3B5B8C"/>
+        <rect x="670" y="96" width="150" height="54" rx="3" fill="rgba(15,37,71,0.04)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="745.0" y="120.0" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">json.loads</text>
+        <text x="745.0" y="135.0" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">Expecting value</text>
+        <text x="840" y="114" fill="#0F2547" font-size="18" font-weight="600" font-family="'Instrument Serif', serif">0 de 20</text>
+        <text x="840" y="132" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">parsean tal cual</text>
+        <text x="40" y="176" fill="#3B5B8C" font-size="10" font-weight="400" font-family="'Geist', sans-serif">Quitando los fences, 19 de 20 validan. El que falla trae un valor fuera del esquema: requested_action = &quot;return&quot;.</text>
+        <line x1="40" y1="204" x2="1000" y2="204" stroke="rgba(15,37,71,0.10)" stroke-width="0.8"/>
+        <text x="40" y="238" fill="#0F2547" font-size="13" font-weight="600" font-family="'Geist', sans-serif">response_format con JSON Schema</text>
+        <text x="40" y="254" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">vLLM compila el esquema en una gramática y enmascara los tokens que la rompen</text>
+        <rect x="40" y="274" width="150" height="54" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="115.0" y="298.0" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Ticket + esquema</text>
+        <text x="115.0" y="313.0" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">response_format</text>
+        <line x1="190" y1="301" x2="230" y2="301" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="230,301 223,297 223,305" fill="#3B5B8C"/>
+        <rect x="230" y="274" width="150" height="54" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="305.0" y="298.0" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Gramática</text>
+        <text x="305.0" y="313.0" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">se compila una vez</text>
+        <line x1="380" y1="301" x2="420" y2="301" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="420,301 413,297 413,305" fill="#3B5B8C"/>
+        <rect x="420" y="274" width="210" height="54" rx="3" fill="rgba(197,146,22,0.18)" stroke="#C59216" stroke-width="1"/>
+        <text x="525.0" y="298.0" fill="#9A6F0B" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">Máscara de logits</text>
+        <text x="525.0" y="313.0" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">tokens inválidos a -inf</text>
+        <line x1="630" y1="301" x2="670" y2="301" stroke="#3B5B8C" stroke-width="1.4"/>
+        <polygon points="670,301 663,297 663,305" fill="#3B5B8C"/>
+        <rect x="670" y="274" width="150" height="54" rx="3" fill="rgba(15,37,71,0.10)" stroke="#3B5B8C" stroke-width="1"/>
+        <text x="745.0" y="298.0" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif" text-anchor="middle">json.loads</text>
+        <text x="745.0" y="313.0" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace" text-anchor="middle">y el validador</text>
+        <text x="840" y="292" fill="#9A6F0B" font-size="18" font-weight="600" font-family="'Instrument Serif', serif">20 de 20</text>
+        <text x="840" y="310" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">parsean y validan</text>
+        <text x="40" y="354" fill="#3B5B8C" font-size="10" font-weight="400" font-family="'Geist', sans-serif">Cada paso del decode, antes de elegir, deja pasar solo los tokens que mantienen el texto dentro de la gramática.</text>
+        <text x="40" y="388" fill="#0F2547" font-size="11" font-weight="600" font-family="'Geist', sans-serif">Latencia media por ticket</text>
+        <rect x="220" y="374" width="270" height="20" rx="3" fill="rgba(15,37,71,0.04)" stroke="rgba(15,37,71,0.35)" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="228" y="388" fill="#3B5B8C" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">texto libre 2.67 s, 62 tokens</text>
+        <rect x="220" y="400" width="240" height="20" rx="3" fill="rgba(197,146,22,0.18)" stroke="#C59216" stroke-width="1"/>
+        <text x="228" y="414" fill="#9A6F0B" font-size="9" font-weight="400" font-family="'Geist Mono', monospace">esquema 2.38 s, 54 tokens</text>
+        <text x="40" y="444" fill="#3B5B8C" font-size="14" font-weight="400" font-family="'Instrument Serif', serif" font-style="italic">Con el esquema la respuesta es más corta (sin fences) y la máscara no se nota: 0.89 veces la latencia del texto libre.</text>
+        <line x1="40" y1="464" x2="1000" y2="464" stroke="rgba(15,37,71,0.10)" stroke-width="0.8"/>
+        <text x="40" y="482" fill="#3B5B8C" font-size="8" font-weight="400" font-family="'Geist Mono', monospace" letter-spacing="0.14em">LEYENDA</text>
+        <text x="120" y="482" fill="#0F2547" font-size="9" font-weight="400" font-family="'Geist', sans-serif">Gemma 4 E4B bf16, una L4, 20 tickets en español; los tiempos incluyen el túnel; vLLM 0.33.0</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

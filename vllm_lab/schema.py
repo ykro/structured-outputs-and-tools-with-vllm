@@ -97,6 +97,13 @@ def check_text(text: str, schema: dict = TICKET_SCHEMA) -> dict:
             "value": value}
 
 
+def unwrap(text: str) -> str:
+    """What a careful app does before json.loads: keep what sits between the first '{' and the
+    last '}', which drops Markdown fences and a friendly sentence in front or behind."""
+    start, end = text.find("{"), text.rfind("}")
+    return text[start:end + 1] if 0 <= start < end else text
+
+
 def _close(prefix: str, close_strings: bool) -> str | None:
     """Turns a JSON prefix into a candidate document by closing what is still open."""
     stack: list[str] = []

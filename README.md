@@ -63,7 +63,7 @@ Cuatro mensajes fijos revisan el comportamiento: una consulta de estado llama `l
 --enable-auto-tool-choice --tool-call-parser gemma4
 ```
 
-`gcp/deploy_vllm.sh` ya los pasa. El parser `gemma4` está registrado en `vllm/tool_parsers/__init__.py` de la versión 0.33.0 (clase `Gemma4EngineToolParser`) y traduce los tokens nativos de llamada de Gemma 4 al formato `tool_calls` de OpenAI. Ese parser no soporta `tool_choice="required"` ni una herramienta con nombre, por eso el experimento usa `tool_choice="auto"`. Si el template del modelo no produce llamadas, la imagen trae uno alternativo en `/vllm-workspace/examples/tool_chat_template_gemma4.jinja`, que se activa con `VLLM_CHAT_TEMPLATE`.
+`gcp/deploy_vllm.sh` ya los pasa. El parser `gemma4` está registrado en `vllm/tool_parsers/__init__.py` de la versión 0.33.0 (clase `Gemma4EngineToolParser`) y traduce los tokens nativos de llamada de Gemma 4 al formato `tool_calls` de OpenAI. El experimento usa `tool_choice="auto"`, así el modelo decide solo cuándo llamar; `required` y una herramienta con nombre no se probaron en esta corrida. Si el template del modelo no produce llamadas, la imagen trae uno alternativo en `/vllm-workspace/examples/tool_chat_template_gemma4.jinja`, que se activa con `VLLM_CHAT_TEMPLATE`.
 
 ### 5. Streaming de un JSON hacia la interfaz
 
@@ -73,44 +73,40 @@ El experimento 05 hace streaming de un registro con `response_format` y, despué
 
 ## Resultados de verificación (`verify_structured.py`)
 
-**Pendiente de la corrida en vivo.** Las cifras de esta sección salen de `make verify-live` contra vLLM 0.33.0 con `google/gemma-4-E4B-it` en una GPU L4 de Cloud Run; esa corrida escribe `benchmarks/latest_results.json` y `benchmarks/terminal_output.txt`.
+Corrida en vivo del 2026-11-11 con `make verify-live` (vLLM 0.33.0, `google/gemma-4-E4B-it` en bf16, una NVIDIA L4 de Cloud Run en `us-east4`, pesos desde un bucket, servidor con `--enable-auto-tool-choice --tool-call-parser gemma4`). Todo queda en `benchmarks/latest_results.json` y `benchmarks/terminal_output.txt`. El juez pasa los 5 checks.
 
-| Experimento | Archivo | Qué se mide | Qué exige el juez | Resultado en vivo |
-| :--- | :--- | :--- | :--- | :--- |
-| **01. JSON pedido en el prompt** | `experiments/01_free_text_breaks_parsers.py` | Cuántas respuestas parsean y validan | Que corra los 20 tickets (la tasa solo se reporta) | Pendiente de la corrida en vivo |
-| **02. `response_format` con JSON Schema** | `experiments/02_json_schema_output.py` | Tasa de validación y latencia contra texto libre | 100 % válido y nunca menos que el texto libre | Pendiente de la corrida en vivo |
-| **03. `choice` y `regex`** | `experiments/03_enums_and_regex.py` | Urgencia dentro de las 3 opciones, número de pedido que cumple el patrón | 100 % en los dos | Pendiente de la corrida en vivo |
-| **04. Loop de tool calling** | `experiments/04_tool_calling.py` | Qué herramientas llama en cada uno de los 4 casos | Los 4 casos con las herramientas correctas | Pendiente de la corrida en vivo |
-| **05. Streaming de JSON a la interfaz** | `experiments/05_streaming_json_to_ui.py` | Cuándo llega cada campo completo | Que el primer campo llegue antes del final y el texto completo valide | Pendiente de la corrida en vivo |
+| Experimento | Qué se mide | Resultado en L4 |
+| :--- | :--- | :--- |
+| **01. JSON pedido en el prompt** | Cuántas respuestas parsean y validan | **0 de 20** parsean: el modelo envuelve cada JSON en un bloque de Markdown. Al quitar los fences y la charla, **19 de 20** validan; el que falla trae `requested_action = "return"`, un valor fuera del esquema |
+| **02. `response_format` con JSON Schema** | Validación y latencia contra texto libre | **20 de 20** parsean y validan. Latencia media 2.38 s contra 2.67 s del texto libre (0.89 veces): 54 tokens por registro contra 62, porque no hay fences |
+| **03. `choice` y `regex`** | Urgencia en las 3 opciones y número de pedido con patrón | 100 % y 100 %. El texto libre también acertó la forma en las dos (100 % y 100 %): con una pregunta de una palabra este modelo ya obedecía, y la restricción convierte esa costumbre en garantía |
+| **04. Loop de tool calling** | Qué herramientas llama en 4 casos | **4 de 4**: `lookup_order`, `lookup_order` + `create_return`, `lookup_order` sin devolución (47 días), ninguna herramienta |
+| **05. Streaming de JSON a la interfaz** | Cuándo llega cada campo | Primer token a los 0.31 s, `category` cerrada a los 0.69 s, `urgency` 1.03, `product` 1.39, `requested_action` 1.77, `order_id` 2.43 y fin a los 2.51 s (58 chunks). El texto completo valida |
 
-Así se ve la salida del juez con el servidor falso (`make all`). Las cifras del mock son inventadas a propósito: sirven para revisar la lógica sin GPU, y el texto libre del mock rompe la mitad de los tickets de forma determinista para que el contraste se vea.
+Salida del juez en vivo:
 
 ```text
-====================================================================================================
-THE OUTSIDE JUDGE — Structured Outputs and Tools with vLLM
-====================================================================================================
-Mode    : mock (fake server, numbers are not real)
-Server  : vLLM mock | constrained params via 'structured_outputs' | first schema request 0.134 s
-Client  : Python 3.12.11 | Darwin arm64
-----------------------------------------------------------------------------------------------------
-Experiment                       | Measured                           | Result               | Check
-----------------------------------------------------------------------------------------------------
-01. JSON asked in the prompt     | parse 15/20, valid 10/20           | 50 % valid           | PASS
-02. response_format json_schema  | valid 100 % vs 50 % free           | latency 1.09x free   | PASS
-03. choice and regex             | enum 100 %, regex 100 %            | free 50 % / 50 %     | PASS
-04. Tool calling loop            | lookup, lookup+return, lookup, -   | 4/4 cases            | PASS
-05. Streaming JSON to a UI       | first field 0.035 s of 0.117 s     | parses at end        | PASS
-----------------------------------------------------------------------------------------------------
-Agreement with hand labels (informative): schema 100 % of fields, urgency 100 %, order id 100 %.
-A schema guarantees the shape of the answer; whether the values are right is a separate check.
-ALL CHECKS PASSED.
+Experiment                       | Measured                           | Result                     | Check
+----------------------------------------------------------------------------------------------------------
+01. JSON asked in the prompt     | parse 0/20, valid 0/20             | unwrapped 19/20 valid      | PASS
+02. response_format json_schema  | valid 100 % vs 0 % free            | latency 0.89x free         | PASS
+03. choice and regex             | enum 100 %, regex 100 %            | free 100 % / 100 %         | PASS
+04. Tool calling loop            | lookup, lookup+return, lookup, -   | 4/4 cases                  | PASS
+05. Streaming JSON to a UI       | first field 0.693 s of 2.507 s     | parses at end              | PASS
+----------------------------------------------------------------------------------------------------------
+Agreement with hand labels (informative): schema 92 % of fields, urgency 80 %, order id 100 %.
 ```
+
+### Lo que falló primero
+
+La primera corrida en vivo del experimento 04 sacó 3 de 4. Con un system prompt corto («Usa las herramientas...»), el modelo respondió a «¿por dónde viene mi pedido GT-104233?» con una pregunta de aclaración y no llamó `lookup_order`. Se refuerza el prompt (consultar siempre el pedido cuando haya número, sin pedir aclaraciones) y pasan los 4. Tool calling sigue siendo una decisión del modelo; por eso el juez revisa casos fijos. La primera corrida queda en `benchmarks/tool_calling_first_attempt.json`.
 
 ### Cómo leer estas cifras
 
 - **Comportamiento contra números.** El juez revisa comportamiento: el esquema siempre valida, las opciones y el patrón siempre se respetan, el loop llama las herramientas correctas y el streaming termina en un JSON válido. La tasa del texto libre y las latencias cambian con el modelo, la versión y la corrida; se reportan y no se juzgan.
-- **Latencia del esquema.** La primera petición con un esquema nuevo incluye compilar la gramática y por eso se reporta aparte. El cociente `latency x free` compara las medias de los 20 tickets ya con la gramática en caché. El texto libre a veces genera más tokens (fences de Markdown, una frase de cortesía), lo que compensa parte del costo de la máscara.
-- **Forma contra contenido.** La línea de coincidencia con las etiquetas escritas a mano es informativa. Un registro puede validar y aun así traer la categoría equivocada; para eso hace falta una evaluación aparte, con datos etiquetados como los de `data/tickets.json`.
+- **Latencia del esquema.** La primera petición con un esquema nuevo (máximo 60 tokens) tardó 1.57 s, y la compilación de la gramática no se distingue del ruido del túnel. El cociente `latency x free` compara las medias de los 20 tickets: 0.89, porque el texto libre genera 8 tokens más por registro (fences de Markdown) y eso pesa más que el costo de la máscara.
+- **Texto libre contra texto limpio.** El juez cuenta el texto libre tal cual, como lo recibe un `json.loads` ingenuo (0 de 20), y aparte después de quitar los fences y la charla (19 de 20, columna `unwrapped`). La diferencia entre las dos cifras es lo que cuesta no tener un contrato.
+- **Forma contra contenido.** La línea de coincidencia con las etiquetas escritas a mano es informativa: con el esquema, 92 % de los campos coinciden y la urgencia con `choice` coincide en 16 de 20 tickets (80 %); los 4 que no, el modelo los clasificó con una urgencia más alta o más baja que la etiqueta humana. Un registro puede validar y aun así traer la categoría equivocada; para eso hace falta una evaluación aparte, con datos etiquetados como los de `data/tickets.json`.
 - **El túnel.** Los tiempos en vivo incluyen la ida y vuelta por `gcloud run services proxy`.
 
 ---
@@ -119,8 +115,13 @@ ALL CHECKS PASSED.
 
 ```text
 .
+├── benchmarks/
+│   ├── latest_results.json                # lo escribe make verify-live
+│   ├── terminal_output.txt                # salida del juez en vivo
+│   └── tool_calling_first_attempt.json    # el caso que falló antes de reforzar el prompt
 ├── data/
 │   └── tickets.json                       # 20 tickets en español y su registro esperado
+├── diagrams/                              # 3 diagramas blue-gold (html, svg, png)
 ├── experiments/
 │   ├── 01_free_text_breaks_parsers.py     # JSON pedido solo en el prompt: qué parsea y qué valida
 │   ├── 02_json_schema_output.py           # response_format json_schema: validación y latencia
@@ -183,7 +184,7 @@ vLLM necesita una GPU NVIDIA. El script despliega la imagen oficial `vllm/vllm-o
 ```bash
 export GCP_PROJECT_ID=<tu-proyecto>
 bash gcp/stage_weights.sh     # opcional, una vez: pesos en Cloud Storage para cold starts más rápidos
-make deploy                   # incluye --enable-auto-tool-choice --tool-call-parser gemma4
+make deploy                   # (MIN_INSTANCES=1 make deploy mantiene la GPU caliente mientras mides; make cool la devuelve a 0) incluye --enable-auto-tool-choice --tool-call-parser gemma4
 
 # En otra terminal, el túnel local (queda escuchando)
 gcloud run services proxy vllm-gemma --region us-east4 --port 8000

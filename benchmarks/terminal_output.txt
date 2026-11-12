@@ -1,0 +1,18 @@
+==========================================================================================================
+THE OUTSIDE JUDGE — Structured Outputs and Tools with vLLM
+==========================================================================================================
+Mode    : live
+Server  : vLLM 0.33.0 | constrained params via 'structured_outputs' | first schema request 1.571 s
+Client  : Python 3.12.11 | Darwin arm64
+----------------------------------------------------------------------------------------------------------
+Experiment                       | Measured                           | Result                     | Check
+----------------------------------------------------------------------------------------------------------
+01. JSON asked in the prompt     | parse 0/20, valid 0/20             | unwrapped 19/20 valid      | PASS
+02. response_format json_schema  | valid 100 % vs 0 % free            | latency 0.89x free         | PASS
+03. choice and regex             | enum 100 %, regex 100 %            | free 100 % / 100 %         | PASS
+04. Tool calling loop            | lookup, lookup+return, lookup, -   | 4/4 cases                  | PASS
+05. Streaming JSON to a UI       | first field 0.693 s of 2.507 s     | parses at end              | PASS
+----------------------------------------------------------------------------------------------------------
+Agreement with hand labels (informative): schema 92 % of fields, urgency 80 %, order id 100 %.
+A schema guarantees the shape of the answer; whether the values are right is a separate check.
+ALL CHECKS PASSED.

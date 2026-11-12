@@ -25,6 +25,7 @@ TOOL_PARSER="${VLLM_TOOL_CALL_PARSER:-gemma4}"
 # Optional: a chat template file inside the image. Empty uses the model's own template.
 # vLLM ships one for Gemma 4 at /vllm-workspace/examples/tool_chat_template_gemma4.jinja.
 CHAT_TEMPLATE="${VLLM_CHAT_TEMPLATE:-}"
+# MIN_INSTANCES=1 keeps the GPU warm during a working session; deploy with 0 (or `make cool`) after.
 
 # Weights: from the bucket filled by gcp/stage_weights.sh when it exists (fast, predictable
 # cold starts), otherwise straight from Hugging Face (simplest, but anonymous downloads are
@@ -55,7 +56,7 @@ gcloud run deploy "${SERVICE}" \
   ${SOURCE_FLAGS[@]+"${SOURCE_FLAGS[@]}"} \
   --gpu 1 --gpu-type nvidia-l4 --no-gpu-zonal-redundancy \
   --cpu 8 --memory 32Gi --no-cpu-throttling \
-  --min-instances 0 --max-instances 1 --concurrency 64 --timeout 900 \
+  --min-instances "${MIN_INSTANCES:-0}" --max-instances 1 --concurrency 64 --timeout 900 \
   --startup-probe "httpGet.path=/health,httpGet.port=8080,periodSeconds=10,failureThreshold=150,timeoutSeconds=5" \
   --no-allow-unauthenticated
 
